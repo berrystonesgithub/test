@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标滑过显示详情</title>
+    <!-- IMPORT CSS -->
+    <style>
+        * {
+            user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            /* CSS3 新盒子模型：控制WIDTH/HEIGHT是盒子最终的宽高 */
+            box-sizing: border-box;
+            width: 200px;
+            height: 40px;
+            border: 1px solid lightcoral;
+            margin: 20px auto;
+            line-height: 40px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .box .detail {
+            user-select: none;
+            position: absolute;
+            right: -1px;
+            top: 38px;
+            box-sizing: border-box;
+            width: 500px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            border: 1px solid lightcoral;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 基于CSS实现，需要让详情区的内容在按钮内部 -->
+    <div class="box" id="box">
+        <span>购物车</span>
+        <div class="detail" id="detail" style="display: none;">
+            购物车详情信息
+        </div>
+    </div>
+    <!-- 
+        传统基于操作DOM方式实现业务需求
+        获取元素->绑定事件->样式改变 
+    -->
+    <!-- IMPORT JS -->
+    <script>
+        //document.getElementById([id]):在整个文档中，通过元素id获取当前元素对象
+        let box = document.getElementById('box');
+        let detail = document.getElementById('detail');
+
+        //元素对象.onXXX=function(){}:事件绑定，XXX -> click/mouseover/mousedown/keydown...
+        box.onclick = function () {
+
+            //元素对象.style.xxx=xxx:修改元素的行内样式(不在行内的样式在JS中基于.style.xxx无法获得)
+            //1.获取原有样式:元素.style.xxx 就是获取某一个样式
+
+            let display = detail.style.display;
+
+            if (display === "none") {
+                box.style.borderBottomColor = "#fff";
+                detail.style.display = "block";
+            }else{
+                box.style.borderBottomColor = "lightcoral";
+                detail.style.display = "none";
+            }
+            
+
+        }
+    </script>
+</body>
+
+</html>
